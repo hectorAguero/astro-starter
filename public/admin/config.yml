@@ -5,14 +5,14 @@ logo_url: /logo.svg
 backend:
     name: github
     branch: main
-    repo: zankhq/astro-starter
-    site_domain: astrostarter.majestico.it
-    base_url: https://astrostarter.majestico.it
-    auth_endpoint: oauth
+    repo: hectorAguero/astro-starter
+    site_domain: astro-starter-uw0.pages.dev
+    base_url: https://astro-starter-uw0.pages.dev/
+    auth_endpoint: /api/auth
     automatic_deployments: true
 
-media_folder: "src/assets/images"
-public_folder: "@assets/images"
+media_folder: static/img
+public_folder: /img
 
 i18n:
     structure: "multiple_folders"
