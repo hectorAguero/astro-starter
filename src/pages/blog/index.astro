@@ -1,21 +1,23 @@
 ---
-import Layout from "@layouts/Layout.astro";
-import BlogHeader from "@components/blog/BlogHeader.astro";
-import { DEFAULT_LOCALE } from "@src/consts";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import { getLocale, getLocaleUrlPrefix } from "astro-i18n-aut";
+import BlogHeader from "@components/blog/BlogHeader.astro";
+import Layout from "@layouts/Layout.astro";
 import Container from "@src/components/Container.astro";
 import HeroImage from "@src/components/blog/HeroImage.astro";
+import { DEFAULT_LOCALE } from "@src/consts";
+import { getLocale, getLocaleUrlPrefix } from "astro-i18n-aut";
 
 const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
 const localeUrlPrefix = getLocaleUrlPrefix(Astro.url);
 
-const posts = (await getCollection("blog", (entry) => entry.slug.startsWith(`${locale}/`)))
+const posts = (
+	await getCollection("blog", (entry) => entry.slug.startsWith(`${locale}/`))
+)
 	.sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf())
 	.map<CollectionEntry<"blog"> & { href: string }>((post) => {
 		return {
-			href: localeUrlPrefix + "/blog" + post.slug.replace(locale, "") + "/",
+			href: `${localeUrlPrefix}/blog${post.slug.replace(locale, "")}/`,
 			...post,
 		};
 	});

@@ -5,7 +5,9 @@ import { getLocale } from "astro-i18n-aut";
 import { DEFAULT_LOCALE } from "../../consts";
 
 export async function getStaticPaths() {
-	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(DEFAULT_LOCALE + "/"));
+	const posts = await getCollection("blog", (entry) =>
+		entry.slug.startsWith(`${DEFAULT_LOCALE}/`),
+	);
 	return posts.map((post) => ({
 		params: { slug: post.slug.replace(`${DEFAULT_LOCALE}/`, "") },
 	}));
@@ -18,7 +20,7 @@ const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
 
 const post = await getEntry({
 	collection: "blog",
-	slug: locale + "/" + slug,
+	slug: `${locale}/${slug}`,
 });
 if (!post) {
 	return new Response(null, {

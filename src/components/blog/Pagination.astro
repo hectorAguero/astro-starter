@@ -1,7 +1,7 @@
 ---
-import { Icon } from "astro-icon";
-import translations, { localizePath } from "@utils/t.ts";
 import Link from "@components/Link.astro";
+import translations, { localizePath } from "@utils/t.ts";
+import { Icon } from "astro-icon/components";
 
 export interface Props {
 	prevUrl: string;
@@ -14,7 +14,13 @@ export interface Props {
 const url = Astro.url;
 const t = translations(url);
 
-const { prevUrl, nextUrl, prevText = "blog.prev", nextText = "blog.next", class: className } = Astro.props;
+const {
+	prevUrl,
+	nextUrl,
+	prevText = "blog.prev",
+	nextText = "blog.next",
+	class: className,
+} = Astro.props;
 ---
 
 {

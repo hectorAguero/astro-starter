@@ -1,7 +1,12 @@
-import type { APIRoute } from "astro";
-import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
-import { SITE_TITLE, SITE_DESCRIPTION, DEFAULT_LOCALE, LOCALES } from "../../consts";
+import rss from "@astrojs/rss";
+import type { APIRoute } from "astro";
+import {
+	DEFAULT_LOCALE,
+	LOCALES,
+	SITE_DESCRIPTION,
+	SITE_TITLE,
+} from "../../consts";
 
 /**
  * Generates an array of static paths for all supported locales.
@@ -32,7 +37,9 @@ export const get: APIRoute = async function get({ params, redirect, site }) {
 		return redirect("/rss.xml");
 	}
 
-	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(locale));
+	const posts = await getCollection("blog", (entry) =>
+		entry.slug.startsWith(locale),
+	);
 
 	if (posts.length === 0) {
 		return new Response(null, {
@@ -44,7 +51,7 @@ export const get: APIRoute = async function get({ params, redirect, site }) {
 	const { body } = await rss({
 		title: SITE_TITLE,
 		description: SITE_DESCRIPTION,
-		site: site!.href,
+		site: site?.href ?? "",
 		items: posts.map((post) => ({
 			...post.data,
 			link: `/blog/${post.slug.replace(`${locale}/`, "")}/`,

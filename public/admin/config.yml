@@ -17,9 +17,9 @@ public_folder: /img
 i18n:
     structure: "multiple_folders"
     locales:
-        - "en"
-        - "it"
-    default_locale: "en"
+        - "es"
+        - "pt"
+    default_locale: "es"
 
 collections:
     - name: "posts"

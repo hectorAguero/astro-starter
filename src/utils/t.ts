@@ -5,17 +5,18 @@
 import { DEFAULT_LOCALE, LOCALES } from "@src/consts";
 import { getLocale } from "astro-i18n-aut";
 
-import en from "@locales/en.json";
-import it from "@locales/it.json";
+import es from "@locales/es.json";
+import pt from "@locales/pt.json";
 
 const handler = {
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	get(target: any, prop: any, receiver: any) {
 		return target[prop].replaceAll("\n", "<br/>");
 	},
 };
 
-const it_proxy = new Proxy(it, handler);
-const en_proxy = new Proxy(en, handler);
+const es_proxy = new Proxy(es, handler);
+const pt_proxy = new Proxy(pt, handler);
 
 export const defaultLocale = DEFAULT_LOCALE;
 export const locales = LOCALES;
@@ -29,23 +30,24 @@ export default function t(astroUrl: URL): Locales {
 	const locale = getLocale(astroUrl);
 
 	switch (locale) {
-		case "it":
-			return it_proxy as Locales;
+		case "pt":
+			return pt_proxy as Locales;
 		default:
-			return en_proxy as Locales;
+			return es_proxy as Locales;
 	}
 }
 
 export function tFn(astroUrl: URL) {
 	const locale = getLocale(astroUrl);
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 	let translations: any;
 
 	switch (locale) {
-		case "it":
-			translations = it_proxy;
+		case "pt":
+			translations = pt_proxy;
 			break;
 		default:
-			translations = en_proxy;
+			translations = es_proxy;
 			break;
 	}
 

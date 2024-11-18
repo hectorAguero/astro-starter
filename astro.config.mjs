@@ -1,10 +1,11 @@
-import { defineConfig } from "astro/config";
+import alpinejs from "@astrojs/alpinejs";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import alpinejs from "@astrojs/alpinejs";
-import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
+import { filterSitemapByDefaultLocale, i18n } from "astro-i18n-aut/integration";
+import { defineConfig } from "astro/config";
 import { DEFAULT_LOCALE, LOCALES, SITE_URL } from "./src/consts";
+import icon from "astro-icon";
 
 const defaultLocale = DEFAULT_LOCALE;
 const locales = LOCALES;
@@ -23,6 +24,7 @@ export default defineConfig({
 		},
 	},
 	integrations: [
+		icon(),
 		mdx(),
 		sitemap({
 			i18n: {
@@ -40,7 +42,11 @@ export default defineConfig({
 		i18n({
 			locales,
 			defaultLocale,
-			exclude: ["pages/api/**/*", "pages/rss.xml.ts", "pages/[locale]/rss.xml.ts"],
+			exclude: [
+				"pages/api/**/*",
+				"pages/rss.xml.ts",
+				"pages/[locale]/rss.xml.ts",
+			],
 		}),
 	],
 });

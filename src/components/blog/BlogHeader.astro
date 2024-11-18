@@ -6,10 +6,16 @@ type Props = {
 	pubDate: Date;
 	updatedDate?: Date;
 	name?: string;
-	[key: string]: any;
+	[key: string]: unknown;
 };
 
-const { isSubheading = false, pubDate, updatedDate, name, ...props } = Astro.props;
+const {
+	isSubheading = false,
+	pubDate,
+	updatedDate,
+	name,
+	...props
+} = Astro.props;
 ---
 
 <div transition:name={name} transition:animate="initial">
